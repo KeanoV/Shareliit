@@ -58,7 +58,7 @@ Widget _googleButton() {
   return OutlineButton(
     splashColor: Colors.grey,
     onPressed: () {
-      _loginUser(type: LoginType.google, context: context);
+      _loginUser(type: LoginType.google);
     },
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
     highlightElevation: 0,
