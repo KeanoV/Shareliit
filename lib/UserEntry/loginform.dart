@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharekiitstarter/Screens/CurrentUser.dart';
-import 'package:sharekiitstarter/Screens/Homescreen.dart';
+import 'package:sharekiitstarter/Screens/root.dart';
 import 'package:sharekiitstarter/UserEntry/SignUp.dart';
-import 'package:provider/provider.dart';
 
 enum LoginType {
   email,
@@ -22,30 +21,32 @@ void _loginUser({
   String password,
   BuildContext context,
 }) async {
-  CurrentUser _currentuser = Provider.of<CurrentUser>(context, listen: false);
   try {
     String _returnString;
-    switch (type) {
-      case LoginType.google:
-        _returnString = await _currentuser.loginUserWithGoogle();
 
-        break;
+    switch (type) {
       case LoginType.email:
-        _returnString = await _currentuser.loginUserWithEmail(email, password);
+        _returnString = await Auth().loginUserWithEmail(email, password);
+        break;
+      case LoginType.google:
+        _returnString = await Auth().loginUserWithGoogle();
         break;
       default:
     }
+
     if (_returnString == "success") {
       Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(),
-          ),
-          (route) => false);
+        context,
+        MaterialPageRoute(
+          builder: (context) => OurRoot(),
+        ),
+        (route) => false,
+      );
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
+      Scaffold.of(context).showSnackBar(
         SnackBar(
-          content: const Text('Incorrect User Credential'),
+          content: Text(_returnString),
+          duration: Duration(seconds: 2),
         ),
       );
     }

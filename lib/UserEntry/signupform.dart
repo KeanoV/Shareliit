@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharekiitstarter/Screens/CurrentUser.dart';
-import 'package:provider/provider.dart';
+import 'package:sharekiitstarter/Screens/Homescreen.dart';
+import 'package:sharekiitstarter/UserEntry/Login.dart';
 
 class OurSignUpForm extends StatefulWidget {
   @override
@@ -14,12 +15,25 @@ final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _confirmpasswordController =
     TextEditingController();
 
-void _signUpUser(String email, String password, BuildContext context) async {
-  CurrentUser _currentUser = Provider.of<CurrentUser>(context, listen: false);
+void _signUpUser(
+    String email, String password, BuildContext context, String name) async {
   try {
-    String _returnString = await _currentUser.signUpUser(email, password);
+    String _returnString = await Auth().signUpUser(email, password, name);
     if (_returnString == "success") {
-      Navigator.pop(context);
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomeScreen(),
+        ),
+        (route) => false,
+      );
+    } else {
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_returnString),
+          duration: Duration(seconds: 2),
+        ),
+      );
     }
   } catch (e) {
     print(e);
@@ -106,6 +120,7 @@ class _OurSignUpFormState extends State<OurSignUpForm> {
                       prefixIcon: Icon(Icons.lock_open_outlined),
                       hintText: "Password",
                     )),
+                SizedBox(height: 20.0),
                 TextFormField(
                     obscureText: true,
                     autofocus: true,
@@ -147,12 +162,23 @@ class _OurSignUpFormState extends State<OurSignUpForm> {
                   onTap: () {
                     if (_passwordController.text ==
                         _confirmpasswordController.text) {
-                      _signUpUser(_emailController.text,
-                          _passwordController.text, context);
+                      _signUpUser(
+                        _emailController.text,
+                        _passwordController.text,
+                        context,
+                        _displayName.text,
+                      );
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HomeScreen(),
+                        ),
+                        (route) => false,
+                      );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
+                      Scaffold.of(context).showSnackBar(
                         SnackBar(
-                          content: const Text('Failed to Sign in. '),
+                          content: const Text('Failed to Sign Up. '),
                         ),
                       );
                     }
