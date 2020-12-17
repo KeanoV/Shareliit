@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharekiitstarter/Screens/CurrentUser.dart';
-import 'package:sharekiitstarter/Screens/root.dart';
+import 'package:sharekiitstarter/Screens/Homescreen.dart';
 import 'package:sharekiitstarter/UserEntry/SignUp.dart';
 
 enum LoginType {
@@ -35,17 +35,12 @@ void _loginUser({
     }
 
     if (_returnString == "success") {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => OurRoot(),
-        ),
-        (route) => false,
-      );
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) => HomeScreen()));
     } else {
       Scaffold.of(context).showSnackBar(
         SnackBar(
-          content: Text(_returnString),
+          content: Text("Login Failed"),
           duration: Duration(seconds: 2),
         ),
       );

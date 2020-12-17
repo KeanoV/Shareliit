@@ -1,9 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:provider/provider.dart';
-import 'package:sharekiitstarter/AppFeats/ChatApp/groups.dart';
-import 'package:sharekiitstarter/AppFeats/book/Sales.dart';
+import 'package:sharekiitstarter/AppFeats/groups/model/bookForm.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:sharekiitstarter/Screens/CurrentUser.dart';
 import 'package:sharekiitstarter/Screens/root.dart';
@@ -26,6 +23,7 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple[50],
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -33,96 +31,73 @@ class _ProfilePageState extends State<ProfilePage> {
           style: TextStyle(fontSize: 20, color: Color(0xFF311b92)),
         ),
         elevation: 0.0,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.purple[50],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ShadowContainer(
-          child: ListView(
-            children: <Widget>[
-              Center(
-                child: CircleAvatar(
-                  backgroundColor: Colors.purple[50],
-                  radius: 80,
-                  child: _pickedImage == null ? Text("Picture") : null,
-                  backgroundImage:
-                      _pickedImage != null ? FileImage(_pickedImage) : null,
-                ),
+          child: ListView(children: <Widget>[
+            Center(
+              child: CircleAvatar(
+                backgroundColor: Colors.purple[50],
+                radius: 80,
+                child: _pickedImage == null ? Text("Picture") : null,
+                backgroundImage:
+                    _pickedImage != null ? FileImage(_pickedImage) : null,
               ),
-              const SizedBox(height: 10.0),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                child: Text(
-                  "Pick a Image",
-                  style: TextStyle(color: Colors.purple),
-                ),
-                onPressed: () {
-                  _showPickOptionsDialog(context);
-                },
+            ),
+            const SizedBox(height: 10.0),
+            RaisedButton(
+              padding: EdgeInsets.all(30.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: Text(
+                "Pick a Image",
+                style: TextStyle(color: Colors.purple, fontSize: 20),
               ),
-              RaisedButton(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                child: Text(
-                  "Sell",
-                  style: TextStyle(color: Colors.purple),
-                ),
-                onPressed: () => _pushPage(context, creategroup()),
-              ),
-              Container(
-                child: RaisedButton(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20.0))),
-                  child: Text(
-                    "Log Out",
-                    style: TextStyle(color: Colors.purple),
-                  ),
-                  onPressed: () async {
-                    {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OurRoot(),
-                          ),
-                          (route) => false);
-                    }
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  _loadPicker(ImageSource source) async {
-    File picked = await ImagePicker.pickImage(source: source);
-    if (picked != null) {}
-    Navigator.pop(context);
-  }
-
-  void _showPickOptionsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListTile(
-              title: Text("Pick from Gallery"),
-              onTap: () {
-                _loadPicker(ImageSource.gallery);
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => Createsale()));
               },
             ),
-            ListTile(
-              title: Text("Take a pictuer"),
-              onTap: () {
-                _loadPicker(ImageSource.camera);
-              },
-            )
-          ],
+            SizedBox(height: 30.0),
+            RaisedButton(
+              padding: EdgeInsets.all(30.0),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: Text(
+                "Sell",
+                style: TextStyle(color: Colors.purple, fontSize: 20),
+              ),
+              onPressed: () => _pushPage(context, Createsale()),
+            ),
+            SizedBox(height: 30.0),
+            Container(
+              child: RaisedButton(
+                padding: EdgeInsets.all(30.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: Text(
+                  "Log Out",
+                  style: TextStyle(color: Colors.purple, fontSize: 20),
+                ),
+                onPressed: () async {
+                  {
+                    String _returnString = await Auth().signOut();
+                    if (_returnString == "Success") {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (BuildContext context) => OurRoot()));
+                    }
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: 20.0),
+          ]),
         ),
       ),
     );

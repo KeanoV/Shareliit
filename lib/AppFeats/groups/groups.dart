@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sharekiitstarter/AppFeats/ChatApp/addbook.dart';
+import 'package:sharekiitstarter/AppFeats/groups/addbook.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 
 class creategroup extends StatefulWidget {
@@ -42,7 +42,7 @@ class _creategroupState extends State<creategroup> {
                   TextFormField(
                     controller: _groupNameController,
                     decoration: InputDecoration(
-                      prefixIcon: Icon(Icons.group),
+                      prefixIcon: Icon(Icons.money),
                       hintText: "Name",
                     ),
                   ),

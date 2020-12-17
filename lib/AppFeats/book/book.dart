@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Book extends StatefulWidget {
   @override
@@ -9,13 +10,14 @@ class Book extends StatefulWidget {
 }
 
 class _BookState extends State<Book> {
+  Future<QuerySnapshot> doclist;
   Timer _debounce;
   TextEditingController _controller = TextEditingController();
-
+  bool searchstate = false;
   StreamController _streamController;
   Stream _stream;
 
-  _search() async {
+  Future _search() async {
     if (_controller.text == null || _controller.text.length == 0) {
       _streamController.add(null);
       return;
@@ -24,11 +26,44 @@ class _BookState extends State<Book> {
     _streamController.add("waiting");
   }
 
+  Widget List() {
+    return Container(
+      child: _stream != null
+          ? Column(
+              children: <Widget>[
+                StreamBuilder(
+                  stream: _stream,
+                  builder: (context, snapshot) {
+                    return ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: snapshot.data.documents.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return Card(
+                              child: ListTile(
+                            title: snapshot.data.documents[index].data["title"],
+                            leading:
+                                snapshot.data.documents[index].data['imgUrl'],
+                            isThreeLine: true,
+                          ));
+                        });
+                  },
+                )
+              ],
+            )
+          : Container(
+              alignment: Alignment.center,
+              child: CircularProgressIndicator(),
+            ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         child: Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.purple,
         title: Text("Books"),
         centerTitle: true,
         bottom: PreferredSize(
@@ -75,23 +110,7 @@ class _BookState extends State<Book> {
         ),
       ),
       body: Column(
-        children: <Widget>[
-          Container(
-            child: SizedBox(
-                height: 300.0,
-                width: 500.0,
-                child: Carousel(
-                  images: [
-                    ExactAssetImage("assets/tannies.jpg"),
-                    ExactAssetImage("assets/kookie.jpg")
-                  ],
-                )),
-          ),
-          ShadowContainer(
-            child: Text(
-                "teagg ukgciytnhbouybfhobuhv ytctf gvkyc hvytd vhl jhv t hvlig y vljb hk';jv kyti ytv kjblhvuuhv;blhjvhvkhjjv jhgcitvk hhvh lv y v hv\n hgvytcv gcurxu g hg yuc lhjvkgc uxv buy i tci ytgvlkhv oy fgvkh h tdrxc gvh iyrc gbkkbugctr xgv u hvit  fxut r"),
-          )
-        ],
+        children: <Widget>[Container(), ShadowContainer(child: List())],
       ),
     ));
   }

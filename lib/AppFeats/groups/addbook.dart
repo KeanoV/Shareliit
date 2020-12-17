@@ -6,7 +6,7 @@ import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:sharekiitstarter/DatabaseManager/dbfuture.dart';
 import 'package:sharekiitstarter/Model/UserModel.dart';
 import 'package:sharekiitstarter/Model/bookModel.dart';
-import 'package:sharekiitstarter/Screens/root.dart';
+import 'package:sharekiitstarter/Screens/Homescreen.dart';
 
 class OurAddBook extends StatefulWidget {
   final bool onGroupCreation;
@@ -30,7 +30,7 @@ class _OurAddBookState extends State<OurAddBook> {
   TextEditingController _bookNameController = TextEditingController();
   TextEditingController _authorController = TextEditingController();
   TextEditingController _lengthController = TextEditingController();
-
+  TextEditingController _priceController = TextEditingController();
   DateTime _selectedDate = DateTime.now();
 
   initState() {
@@ -78,7 +78,7 @@ class _OurAddBookState extends State<OurAddBook> {
   void _addBook(BuildContext context, String groupName, BookModel book) async {
     String _returnString;
 
-    if (_selectedDate.isAfter(DateTime.now().add(Duration(days: 1)))) {
+    if (_selectedDate.isAfter(DateTime.now().add(Duration(days: 0)))) {
       if (widget.onGroupCreation) {
         _returnString =
             await DBFuture().createGroup(groupName, widget.currentUser, book);
@@ -94,7 +94,7 @@ class _OurAddBookState extends State<OurAddBook> {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => OurRoot(),
+              builder: (context) => HomeScreen(),
             ),
             (route) => false);
       }
@@ -131,7 +131,7 @@ class _OurAddBookState extends State<OurAddBook> {
                     controller: _bookNameController,
                     decoration: InputDecoration(
                       prefixIcon: Icon(Icons.book),
-                      hintText: "Book Name",
+                      hintText: "Group Name",
                     ),
                   ),
                   SizedBox(
@@ -154,6 +154,9 @@ class _OurAddBookState extends State<OurAddBook> {
                       hintText: "Length",
                     ),
                     keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(
+                    height: 20.0,
                   ),
                   SizedBox(
                     height: 20.0,

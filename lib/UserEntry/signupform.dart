@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:sharekiitstarter/Screens/CurrentUser.dart';
 import 'package:sharekiitstarter/Screens/Homescreen.dart';
-import 'package:sharekiitstarter/UserEntry/Login.dart';
 
 class OurSignUpForm extends StatefulWidget {
   @override
