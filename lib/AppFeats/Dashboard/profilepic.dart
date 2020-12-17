@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:sharekiitstarter/AppFeats/groups/model/bookForm.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
-import 'package:sharekiitstarter/Screens/CurrentUser.dart';
+import 'package:sharekiitstarter/DatabaseManager/auth.dart';
 import 'package:sharekiitstarter/Screens/root.dart';
 
 class ProfilePage extends StatefulWidget {

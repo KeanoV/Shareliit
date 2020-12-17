@@ -1,7 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:sharekiitstarter/DatabaseManager/auth.dart';
 import 'package:sharekiitstarter/Model/authmodel.dart';
-import 'package:sharekiitstarter/Screens/CurrentUser.dart';
 import 'package:sharekiitstarter/UserEntry/Login.dart';
 import 'package:provider/provider.dart';
 
