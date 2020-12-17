@@ -4,6 +4,7 @@ import 'package:sharekiitstarter/AppFeats/groups/model/bookForm.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:sharekiitstarter/DatabaseManager/auth.dart';
 import 'package:sharekiitstarter/Screens/root.dart';
+import 'package:sharekiitstarter/UserEntry/Login.dart';
 
 class ProfilePage extends StatefulWidget {
   ProfilePage({Key key}) : super(key: key);
@@ -90,7 +91,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (BuildContext context) => OurRoot()));
+                              builder: (BuildContext context) => Login()));
                     }
                   }
                 },
