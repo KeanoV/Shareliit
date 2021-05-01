@@ -1,21 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sharekiitstarter/DatabaseManager/dbfuture.dart';
 import 'package:sharekiitstarter/Model/UserModel.dart';
-import 'package:sharekiitstarter/Model/authmodel.dart';
+import 'package:sharekiitstarter/sharedprefs.dart';
 
 class Auth {
   FirebaseAuth _auth = FirebaseAuth.instance;
-  FirebaseMessaging _fcm = FirebaseMessaging();
+  var firestore = FirebaseFirestore.instance;
 
-  Stream<AuthModel> get user {
+  getCurrentUser() async {
+    return _auth.currentUser;
+  }
+
+  Stream<UserModel> get user {
     return _auth.authStateChanges().map(
           // ignore: deprecated_member_use
           (User firebaseUser) => (firebaseUser != null)
-              ? AuthModel.fromFirebaseUser(user: firebaseUser)
+              ? UserModel.fromFirebaseUser(user: firebaseUser)
               : null,
         );
   }
@@ -43,7 +46,6 @@ class Auth {
         email: _authResult.user.email,
         name: fullName.trim(),
         accountCreated: Timestamp.now(),
-        notifToken: await _fcm.getToken(),
       );
       String _returnString = await DBFuture().createUser(_user);
       if (_returnString == "success") {
@@ -85,7 +87,7 @@ class Auth {
     try {
       GoogleSignInAccount _googleUser = await _googleSignIn.signIn();
       GoogleSignInAuthentication _googleAuth = await _googleUser.authentication;
-      final AuthCredential credential = GoogleAuthProvider.getCredential(
+      final AuthCredential credential = GoogleAuthProvider.credential(
           idToken: _googleAuth.idToken, accessToken: _googleAuth.accessToken);
       UserCredential _authResult = await _auth.signInWithCredential(credential);
       if (_authResult.additionalUserInfo.isNewUser) {
@@ -94,10 +96,17 @@ class Auth {
           email: _authResult.user.email,
           name: _authResult.user.displayName,
           accountCreated: Timestamp.now(),
-          notifToken: await _fcm.getToken(),
         );
         String _returnString = await DBFuture().createUser(_user);
         if (_returnString == "success") {
+          retVal = "success";
+          SharedPreferenceHelper()
+              .saveDisplayName(_authResult.user.displayName);
+          SharedPreferenceHelper().saveUserEmail(_authResult.user.email);
+          SharedPreferenceHelper().saveUserId(_authResult.user.uid);
+          SharedPreferenceHelper()
+              .saveUserProfileUrl(_authResult.user.photoURL);
+
           retVal = "success";
         }
       }

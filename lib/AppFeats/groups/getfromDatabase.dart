@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -6,12 +8,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:io';
 import 'dart:math';
 
-class demo_page extends StatefulWidget {
+class Books_db extends StatefulWidget {
   @override
-  _demo_pageState createState() => _demo_pageState();
+  _book_dbpageState createState() => _book_dbpageState();
 }
 
-class _demo_pageState extends State<demo_page> {
+class _book_dbpageState extends State<Books_db> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,12 +38,13 @@ class _demo_pageState extends State<demo_page> {
   }
 
   Widget _buildBody(BuildContext context) {
+    var firestore = FirebaseFirestore.instance;
     return StreamBuilder<QuerySnapshot>(
-      stream: Firestore.instance.collection('storage').snapshots(),
+      stream: firestore.collection('storage').snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) return LinearProgressIndicator();
 
-        return _buildList(context, snapshot.data.documents);
+        return _buildList(context, snapshot.data.docs);
       },
     );
   }
@@ -84,11 +87,12 @@ class _demo_pageState extends State<demo_page> {
 
   Future getImage() async {
     // Get image from gallery.
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    PickedFile image =
+        await ImagePicker.platform.pickImage(source: ImageSource.gallery);
     _uploadImageToFirebase(image);
   }
 
-  Future<void> _uploadImageToFirebase(File image) async {
+  Future<void> _uploadImageToFirebase(var image) async {
     try {
       // Make random image name.
       int randomNumber = Random().nextInt(100000);
@@ -108,14 +112,11 @@ class _demo_pageState extends State<demo_page> {
   Future<void> _addPathToDatabase(String text) async {
     try {
       // Get image URL from firebase
-      final ref = FirebaseStorage().ref().child(text);
+      final ref = FirebaseStorage.instance.ref().child(text);
       var imageString = await ref.getDownloadURL();
 
       // Add location and url to database
-      await Firestore.instance
-          .collection('storage')
-          .document()
-          .setData({'url': imageString, 'location': text});
+      await FirebaseFirestore.instance.collection('storage').doc().snapshots();
     } catch (e) {
       print(e.message);
       showDialog(

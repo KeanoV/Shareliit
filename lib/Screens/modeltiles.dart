@@ -51,5 +51,12 @@ List<SliderModel> getSlides() {
 
   sliderModel = new SliderModel();
 
+  sliderModel.setDesc("Upload and download Test guides");
+  sliderModel.setTitle("Group Chats & Video");
+  sliderModel.setImageAssetPath("assets/image2.jpg");
+  slides.add(sliderModel);
+
+  sliderModel = new SliderModel();
+
   return slides;
 }

@@ -15,7 +15,7 @@ class BookModel {
   });
 
   BookModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    id = doc.documentID;
+    id = doc.id;
     name = doc.data()["name"];
     author = doc.data()["author"];
     length = doc.data()["length"];

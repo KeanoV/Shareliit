@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sharekiitstarter/Model/authmodel.dart';
+import 'package:sharekiitstarter/Model/UserModel.dart';
 import 'package:sharekiitstarter/Screens/Homescreen.dart';
 import 'package:sharekiitstarter/Screens/StartupPage.dart';
 import 'package:sharekiitstarter/UserEntry/Login.dart';
@@ -18,11 +18,7 @@ class _OurRootState extends State<OurRoot> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-
-    //get the state, check current User, set AuthStatus based on state
-
-    //get the state, check current User, set AuthStatus based on state
-    AuthModel _authStream = Provider.of<AuthModel>(context);
+    UserModel _authStream = Provider.of<UserModel>(context);
     if (_authStream != null) {
       setState(() {
         _authStatus = AuthStatus.loggedIn;

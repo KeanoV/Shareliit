@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "693192251016",
-    "project_id": "fir-demo-c1143",
-    "storage_bucket": "fir-demo-c1143.appspot.com"
+    "project_number": "1024666981354",
+    "firebase_url": "https://sharekitt-5d1d1.firebaseio.com",
+    "project_id": "sharekitt-5d1d1",
+    "storage_bucket": "sharekitt-5d1d1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:693192251016:android:8b2a04a0395ebfe8dd313d",
+        "mobilesdk_app_id": "1:1024666981354:android:7116257c9776e7bc94d893",
         "android_client_info": {
           "package_name": "com.example.sharekiitstarter"
         }
       },
       "oauth_client": [
         {
-          "client_id": "693192251016-qjdol0f1963p7l2608u6bjep3lsrl9fj.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.sharekiitstarter",
-            "certificate_hash": "62e1299e85b70aec13d978cbc36e1feffb46fb6d"
-          }
-        },
-        {
-          "client_id": "693192251016-k96bj5cqend39okc22bobg6d5ofpco1r.apps.googleusercontent.com",
+          "client_id": "1024666981354-us1rspia04e53egrs0rj4f63bkj1npk9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCWE7vI9I-fxCiCyoLb8DfoDiMj3I7wm6g"
+          "current_key": "AIzaSyCSEqgDhUzRtyFU7K7ihr9bVn-7RvFB-iI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "693192251016-k96bj5cqend39okc22bobg6d5ofpco1r.apps.googleusercontent.com",
+              "client_id": "1024666981354-us1rspia04e53egrs0rj4f63bkj1npk9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -19,10 +19,11 @@ class _CreatesaleState extends State<Createsale> {
   CrudMethods crudMethods = new CrudMethods();
 
   Future getImage() async {
-    var image = await ImagePicker.pickImage(source: ImageSource.gallery);
+    var image =
+        await ImagePicker.platform.pickImage(source: ImageSource.gallery);
 
     setState(() {
-      selectedImage = image;
+      selectedImage = image as File;
     });
   }
 

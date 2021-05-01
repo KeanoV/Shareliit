@@ -1,9 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:sharekiitstarter/AppFeats/groups/model/bookForm.dart';
+import 'package:sharekiitstarter/AppFeats/store/add_sale.dart';
+import 'package:sharekiitstarter/AppFeats/store/cart_screen.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
 import 'package:sharekiitstarter/DatabaseManager/auth.dart';
-import 'package:sharekiitstarter/Screens/root.dart';
+import 'package:sharekiitstarter/Screens/Homescreen.dart';
+
 import 'package:sharekiitstarter/UserEntry/Login.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -24,65 +26,92 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[50],
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "DashBoard",
-          style: TextStyle(fontSize: 20, color: Color(0xFF311b92)),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              "Sharekiit",
+              style: TextStyle(fontSize: 30, color: Colors.amber),
+            ),
+            Text(
+              "DashBoard",
+              style: TextStyle(fontSize: 20, color: Colors.blue),
+            )
+          ],
         ),
+        backgroundColor: Colors.black,
         elevation: 0.0,
-        backgroundColor: Colors.purple[50],
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: ShadowContainer(
           child: ListView(children: <Widget>[
             Center(
-              child: CircleAvatar(
-                backgroundColor: Colors.purple[50],
-                radius: 80,
-                child: _pickedImage == null ? Text("Picture") : null,
-                backgroundImage:
-                    _pickedImage != null ? FileImage(_pickedImage) : null,
+              child: ShadowContainer(
+                child: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 80,
+                  child: _pickedImage == null
+                      ? Icon(Icons.add_a_photo_outlined)
+                      : null,
+                  backgroundImage:
+                      _pickedImage != null ? FileImage(_pickedImage) : null,
+                ),
               ),
             ),
-            const SizedBox(height: 10.0),
-            RaisedButton(
-              padding: EdgeInsets.all(30.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            const SizedBox(height: 21.0),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.black),
               child: Text(
-                "Pick a Image",
-                style: TextStyle(color: Colors.purple, fontSize: 20),
+                "Cart",
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
               onPressed: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (BuildContext context) => Createsale()));
+                        builder: (BuildContext context) => CheckoutCart()));
               },
             ),
             SizedBox(height: 30.0),
-            RaisedButton(
-              padding: EdgeInsets.all(30.0),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(primary: Colors.black),
               child: Text(
-                "Sell",
-                style: TextStyle(color: Colors.purple, fontSize: 20),
+                "Add Product",
+                style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              onPressed: () => _pushPage(context, Createsale()),
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => UploadData())),
             ),
             SizedBox(height: 30.0),
             Container(
-              child: RaisedButton(
-                padding: EdgeInsets.all(30.0),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.black),
+                child: Text(
+                  "Chat Bot",
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                onPressed: () async {
+                  {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (BuildContext context) => HomeScreen()));
+                  }
+                },
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Container(
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(primary: Colors.black),
                 child: Text(
                   "Log Out",
-                  style: TextStyle(color: Colors.purple, fontSize: 20),
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
                 onPressed: () async {
                   {

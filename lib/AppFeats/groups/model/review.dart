@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sharekiitstarter/CustomEdits/Container.dart';
-import 'package:sharekiitstarter/Model/authmodel.dart';
+import 'package:sharekiitstarter/Model/UserModel.dart';
 import 'package:sharekiitstarter/Model/groupmodel.dart';
 
 class Review extends StatefulWidget {
@@ -16,11 +16,11 @@ class _ReviewState extends State<Review> {
   final reviewKey = GlobalKey<ScaffoldState>();
   TextEditingController _reviewController = TextEditingController();
   int _dropdownValue;
-  AuthModel _authModel;
+  UserModel _authModel;
 
   @override
   void didChangeDependencies() {
-    _authModel = Provider.of<AuthModel>(context);
+    _authModel = Provider.of<UserModel>(context);
     super.didChangeDependencies();
   }
 

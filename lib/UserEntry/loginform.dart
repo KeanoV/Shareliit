@@ -198,7 +198,7 @@ class _LoginformState extends State<Loginform> {
                       width: 10,
                     ),
                     Text(
-                      'Login',
+                      'Register',
                       style: TextStyle(
                           color: Color(0xFF7E57C2),
                           fontSize: 13,

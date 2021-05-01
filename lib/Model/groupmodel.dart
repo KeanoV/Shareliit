@@ -18,7 +18,7 @@ class GroupModel {
   });
 
   GroupModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    id = doc.documentID;
+    id = doc.id;
     name = doc.data()["name"];
     tokens = List<String>.from(doc.data()["tokens"] ?? []);
     currentBookId = doc.data()["currentBookId"];

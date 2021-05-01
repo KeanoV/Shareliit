@@ -12,7 +12,7 @@ class ReviewModel {
   });
 
   ReviewModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    userId = doc.documentID;
+    userId = doc.id;
     rating = doc.data()["rating"];
     review = doc.data()["review"];
   }

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class UserModel {
   String name;
@@ -20,11 +21,15 @@ class UserModel {
   });
 
   UserModel.fromDocumentSnapshot({DocumentSnapshot doc}) {
-    uid = doc.documentID;
+    uid = doc.id;
     email = doc.data()['email'];
     accountCreated = doc.data()['accountCreated'];
     name = doc.data()['fullName'];
     groupId = doc.data()['groupId'];
     notifToken = doc.data()['notifToken'];
+  }
+  UserModel.fromFirebaseUser({User user}) {
+    uid = user.uid;
+    email = user.email;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sharekiitstarter/AppFeats/Dashboard/profilepic.dart';
-import 'package:sharekiitstarter/AppFeats/book/book.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:sharekiitstarter/AppFeats/groups/chat.dart';
+import 'package:sharekiitstarter/AppFeats/store/book.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
